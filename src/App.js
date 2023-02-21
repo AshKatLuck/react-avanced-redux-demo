@@ -16,6 +16,13 @@ function App() {
 
   useEffect(() => {
     const sendCartData = async () => {
+      dispatch(
+        uiActions.showNotification({
+          status: "pending",
+          title: "sending!",
+          message: "sending the cart data",
+        })
+      );
       const response = await fetch(
         "https://react-redux-ad-default-rtdb.firebaseio.com/cart.json",
         {
@@ -39,13 +46,7 @@ function App() {
       isInitial = false;
       return;
     }
-    dispatch(
-      uiActions.showNotification({
-        status: "pending",
-        title: "sending!",
-        message: "sending the cart data",
-      })
-    );
+
     sendCartData().catch((error) => {
       dispatch(
         uiActions.showNotification({
